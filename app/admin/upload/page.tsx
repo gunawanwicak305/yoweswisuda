@@ -11,7 +11,9 @@ export default function UploadPage() {
   const [loading, setLoading] = useState(true)
 
   const [files, setFiles] = useState<File[]>([])
+
   const [code, setCode] = useState("")
+  const [name, setName] = useState("")
 
   // cek login
   useEffect(() => {
@@ -23,9 +25,13 @@ export default function UploadPage() {
       } = await supabase.auth.getUser()
 
       if (!user) {
+
         router.push("/login")
+
       } else {
+
         setLoading(false)
+
       }
 
     }
@@ -36,11 +42,22 @@ export default function UploadPage() {
 
   const handleUpload = async () => {
 
-    if (!files.length || !code) {
-      alert("Isi kode dan pilih foto dulu")
+    if (!files.length || !code || !name) {
+
+      alert("Lengkapi semua data dulu 😎")
+
       return
     }
 
+    // insert participant
+    await supabase
+      .from("participants")
+      .upsert({
+        participant_code: code,
+        full_name: name
+      })
+
+    // upload semua foto
     for (const file of files) {
 
       const cleanFileName = file.name
@@ -71,7 +88,7 @@ export default function UploadPage() {
 
       const imageUrl = data.publicUrl
 
-      // insert database
+      // insert photo
       await supabase
         .from("photos")
         .insert({
@@ -82,6 +99,11 @@ export default function UploadPage() {
     }
 
     alert("Upload berhasil 🔥")
+
+    setCode("")
+    setName("")
+    setFiles([])
+
   }
 
   if (loading) {
@@ -110,6 +132,14 @@ export default function UploadPage() {
         </p>
 
         <div className="mt-10 flex flex-col gap-4">
+
+          <input
+            type="text"
+            placeholder="Nama peserta"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="bg-white text-black rounded-2xl px-5 py-4 outline-none"
+          />
 
           <input
             type="text"
