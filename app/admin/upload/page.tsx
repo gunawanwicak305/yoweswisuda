@@ -1,12 +1,38 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import { supabase } from "../../../lib/supabase"
 
 export default function UploadPage() {
 
+  const router = useRouter()
+
+  const [loading, setLoading] = useState(true)
+
   const [files, setFiles] = useState<File[]>([])
   const [code, setCode] = useState("")
+
+  // cek login
+  useEffect(() => {
+
+    const checkUser = async () => {
+
+      const {
+        data: { user }
+      } = await supabase.auth.getUser()
+
+      if (!user) {
+        router.push("/login")
+      } else {
+        setLoading(false)
+      }
+
+    }
+
+    checkUser()
+
+  }, [router])
 
   const handleUpload = async () => {
 
@@ -24,7 +50,7 @@ export default function UploadPage() {
       const filePath =
         `${code.trim()}/${Date.now()}-${cleanFileName}`
 
-      // upload ke storage
+      // upload storage
       const { error: uploadError } = await supabase
         .storage
         .from("wisuda-photos")
@@ -32,14 +58,12 @@ export default function UploadPage() {
 
       if (uploadError) {
 
-        console.log(uploadError)
-
         alert(uploadError.message)
 
         return
       }
 
-      // ambil public url
+      // public url
       const { data } = supabase
         .storage
         .from("wisuda-photos")
@@ -47,7 +71,7 @@ export default function UploadPage() {
 
       const imageUrl = data.publicUrl
 
-      // simpan ke database
+      // insert database
       await supabase
         .from("photos")
         .insert({
@@ -57,7 +81,18 @@ export default function UploadPage() {
 
     }
 
-    alert("Semua foto berhasil diupload 🔥")
+    alert("Upload berhasil 🔥")
+  }
+
+  if (loading) {
+
+    return (
+      <main className="min-h-screen bg-black text-white flex items-center justify-center">
+        <h1 className="text-3xl font-bold">
+          Loading...
+        </h1>
+      </main>
+    )
   }
 
   return (
@@ -71,7 +106,7 @@ export default function UploadPage() {
         </h1>
 
         <p className="text-gray-400 mt-3">
-          Upload banyak foto sekaligus
+          Admin Only
         </p>
 
         <div className="mt-10 flex flex-col gap-4">

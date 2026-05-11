@@ -1,25 +1,21 @@
 import { supabase } from "../../../lib/supabase"
 
-type Props = {
-  params: Promise<{
-    code: string
-  }>
-}
-
 export default async function GalleryPage({
-  params
-}: Props) {
+  params,
+}: {
+  params: Promise<{ code: string }>
+}) {
 
   const { code } = await params
 
-  // ambil participant
+  // participant
   const { data: participant } = await supabase
     .from("participants")
     .select("*")
     .eq("participant_code", code)
     .single()
 
-  // ambil photos
+  // photos
   const { data: photos } = await supabase
     .from("photos")
     .select("*")
@@ -52,16 +48,27 @@ export default async function GalleryPage({
 
         {photos?.map((photo) => (
 
-          <img
-            key={photo.id}
-            src={photo.image_url}
-            alt="wisuda"
-            className="rounded-2xl w-full h-[400px] object-cover"
-          />
+         <div
+  key={photo.id}
+  className="bg-white rounded-3xl overflow-hidden"
+>
 
-        ))}
+  <img
+    src={photo.image_url}
+    alt="wisuda"
+    className="rounded-t-3xl w-full h-[400px] object-cover"
+  />
 
-      </div>
+  <a
+    href={photo.image_url}
+    download
+    target="_blank"
+    className="block text-center bg-black text-white py-4 font-bold hover:bg-zinc-800"
+  >
+    Download Foto
+  </a>
+
+</div>
 
     </main>
 
