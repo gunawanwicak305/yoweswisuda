@@ -3,13 +3,16 @@ import { supabase } from "@/lib/supabase"
 export default async function GalleryPage({
   params,
 }: {
-  params: {
+  params: Promise<{
     kampus: string
     nim: string
-  }
+  }>
 }) {
 
-  const { kampus, nim } = params
+  const {
+    kampus,
+    nim,
+  } = await params
 
   // PARTICIPANT
   const { data: participant } =

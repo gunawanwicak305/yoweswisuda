@@ -110,21 +110,21 @@ export async function GET(
 
     // generate zip
     const zipBuffer =
-      await zip.generateAsync({
-        type: "nodebuffer",
-      })
+  await zip.generateAsync({
+    type: "uint8array",
+  })
 
-    return new NextResponse(
-      zipBuffer,
-      {
+return new NextResponse(
+  Buffer.from(zipBuffer),
+  {
 
-        headers: {
+    headers: {
 
-          "Content-Type":
-            "application/zip",
+      "Content-Type":
+        "application/zip",
 
-          "Content-Disposition":
-            `attachment; filename="wisuda-${nim}.zip"`,
+      "Content-Disposition":
+        `attachment; filename="wisuda-${nim}.zip"`,
 
         },
 
