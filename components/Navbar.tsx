@@ -1,25 +1,66 @@
-export default function Navbar() {
+{/* NAVBAR */}
 
-  return (
+<nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-black/5">
 
-    <nav className="border-b border-gray-800 bg-black text-white">
+  <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
 
-      <div className="max-w-7xl mx-auto px-4 py-5 flex justify-between items-center">
+    {/* LOGO */}
 
-        <h1 className="text-2xl font-bold">
-          YowesWisuda
-        </h1>
+    <a
+      href="/"
+      className="text-4xl font-black tracking-tight text-zinc-900"
+    >
+      YowesWisuda
+    </a>
 
-        <a
-          href="/admin/upload"
-          className="bg-white text-black px-5 py-2 rounded-xl font-semibold"
-        >
-          Upload
-        </a>
+    {/* MENU */}
 
-      </div>
+    <div className="flex items-center gap-10 text-sm font-bold uppercase tracking-[0.2em] text-zinc-800">
 
-    </nav>
+      <a
+        href="/"
+        className="hover:opacity-60 transition duration-300"
+      >
+        Home
+      </a>
 
-  )
-}
+      <a
+        href="/"
+        className="hover:opacity-60 transition duration-300"
+      >
+        Cari Foto
+      </a>
+
+      <a
+        href="/gallery"
+        className="hover:opacity-60 transition duration-300"
+      >
+        Gallery
+      </a>
+
+      <a
+        href="/products"
+        className="hover:opacity-60 transition duration-300"
+      >
+        Products
+      </a>
+
+      <a
+        href="/contact"
+        className="hover:opacity-60 transition duration-300"
+      >
+        Contact
+      </a>
+
+      <a
+        href="/login"
+        className="bg-zinc-900 text-white px-6 py-3 rounded-full hover:scale-105 transition duration-300"
+      >
+        Admin
+      </a>
+
+    </div>
+
+  </div>
+
+</nav>

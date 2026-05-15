@@ -13,9 +13,6 @@ export default function HomePage() {
   const [nim, setNim] =
     useState("")
 
-  const [currentSlide, setCurrentSlide] =
-    useState(0)
-
   const heroImages = [
 
     "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1600&auto=format&fit=crop",
@@ -51,7 +48,7 @@ export default function HomePage() {
     },
 
     {
-      title: "Bouquet Wisuda",
+      title: "Bouquet",
       image:
         "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?q=80&w=1200&auto=format&fit=crop",
     },
@@ -70,6 +67,9 @@ export default function HomePage() {
 
   ]
 
+  const [currentSlide, setCurrentSlide] =
+    useState(0)
+
   useEffect(() => {
 
     const interval = setInterval(() => {
@@ -84,7 +84,7 @@ export default function HomePage() {
 
     return () => clearInterval(interval)
 
-  }, [])
+  }, [heroImages.length])
 
   const handleSearch = () => {
 
@@ -133,35 +133,23 @@ export default function HomePage() {
 
             </button>
 
-            <button
-              onClick={() =>
-                document
-                  .getElementById("gallery")
-                  ?.scrollIntoView({
-                    behavior: "smooth",
-                  })
-              }
+            <a
+              href="/gallery"
               className="hover:opacity-60 transition"
             >
 
               Gallery
 
-            </button>
+            </a>
 
-            <button
-              onClick={() =>
-                document
-                  .getElementById("products")
-                  ?.scrollIntoView({
-                    behavior: "smooth",
-                  })
-              }
+            <a
+              href="/products"
               className="hover:opacity-60 transition"
             >
 
               Products
 
-            </button>
+            </a>
 
             <a
               href="/login"
@@ -179,7 +167,7 @@ export default function HomePage() {
       </nav>
 
       {/* HERO */}
-     <section className="relative h-screen overflow-hidden z-0">
+      <section className="relative h-screen overflow-hidden z-0">
 
         {heroImages.map((image, index) => (
 
@@ -196,7 +184,7 @@ export default function HomePage() {
 
         ))}
 
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent pointer-events-none" />
 
         <div className="relative z-10 h-full max-w-7xl mx-auto px-6 flex items-center">
 
@@ -234,27 +222,21 @@ export default function HomePage() {
                     behavior: "smooth",
                   })
                 }
-                className="bg-white text-zinc-900 px-8 py-5 rounded-full font-bold uppercase tracking-[0.2em] hover:scale-105 transition"
+                className="bg-white text-zinc-900 px-8 py-5 rounded-full font-bold uppercase tracking-[0.2em] hover:scale-105 transition duration-300"
               >
 
                 Cari Foto
 
               </button>
 
-              <button
-                onClick={() =>
-                  document
-                    .getElementById("gallery")
-                    ?.scrollIntoView({
-                      behavior: "smooth",
-                    })
-                }
-                className="border border-white/30 bg-white/10 backdrop-blur-xl text-white px-8 py-5 rounded-full font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-zinc-900 transition"
+              <a
+                href="/gallery"
+                className="border border-white/30 bg-white/10 backdrop-blur-xl text-white px-8 py-5 rounded-full font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-zinc-900 transition duration-300"
               >
 
                 Explore Gallery
 
-              </button>
+              </a>
 
             </div>
 
@@ -269,6 +251,7 @@ export default function HomePage() {
 
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
 
+          {/* LEFT */}
           <div>
 
             <p className="uppercase tracking-[0.4em] text-sm text-zinc-400 mb-5 font-semibold">
@@ -294,10 +277,12 @@ export default function HomePage() {
 
           </div>
 
-          <div className="relative z-50 bg-white rounded-[40px] p-10 shadow-[0_20px_80px_rgba(0,0,0,0.08)]">
+          {/* RIGHT */}
+          <div className="relative z-30 bg-white rounded-[40px] p-10 shadow-[0_20px_80px_rgba(0,0,0,0.08)]">
 
             <div className="space-y-6">
 
+              {/* KAMPUS */}
               <div>
 
                 <label className="block text-sm font-black uppercase tracking-[0.2em] mb-3">
@@ -311,7 +296,7 @@ export default function HomePage() {
                   onChange={(e) =>
                     setKampus(e.target.value)
                   }
-                  className="w-full border border-zinc-200 rounded-2xl px-6 py-5 outline-none bg-white"
+                  className="w-full border border-zinc-200 rounded-2xl px-6 py-5 outline-none bg-white text-zinc-900"
                 >
 
                   <option value="UNPAM">
@@ -330,6 +315,7 @@ export default function HomePage() {
 
               </div>
 
+              {/* NIM */}
               <div>
 
                 <label className="block text-sm font-black uppercase tracking-[0.2em] mb-3">
@@ -345,24 +331,21 @@ export default function HomePage() {
                   onChange={(e) =>
                     setNim(e.target.value)
                   }
-                  className="w-full border border-zinc-200 rounded-2xl px-6 py-5 outline-none bg-white"
+                  className="w-full border border-zinc-200 rounded-2xl px-6 py-5 outline-none bg-white text-zinc-900"
                 />
 
               </div>
 
-            <button
+              {/* BUTTON */}
+              <button
+                type="button"
+                onClick={handleSearch}
+                className="w-full bg-zinc-900 text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] hover:scale-[1.02] transition duration-300 cursor-pointer"
+              >
 
-  onClick={handleSearch}
+                Search Gallery
 
-  type="button"
-
-  className="relative z-20 w-full h-[72px] rounded-2xl bg-zinc-900 text-white font-bold tracking-[0.3em] uppercase hover:bg-black hover:scale-[1.02] transition duration-300 cursor-pointer"
-
->
-
-  Search Gallery
-
-</button>
+              </button>
 
             </div>
 
@@ -373,10 +356,7 @@ export default function HomePage() {
       </section>
 
       {/* GALLERY */}
-      <section
-        id="gallery"
-        className="px-6 pb-32"
-      >
+      <section className="px-6 pb-32">
 
         <div className="max-w-7xl mx-auto">
 
@@ -392,11 +372,21 @@ export default function HomePage() {
 
               <h2 className="text-6xl font-black">
 
-                Graduation Gallery
+                Graduation
+                Gallery
 
               </h2>
 
             </div>
+
+            <a
+              href="/gallery"
+              className="text-zinc-900 font-bold uppercase tracking-[0.2em] hover:opacity-60 transition"
+            >
+
+              View More →
+
+            </a>
 
           </div>
 
@@ -426,10 +416,7 @@ export default function HomePage() {
       </section>
 
       {/* PRODUCTS */}
-      <section
-        id="products"
-        className="px-6 pb-32"
-      >
+      <section className="px-6 pb-32">
 
         <div className="max-w-7xl mx-auto">
 
@@ -445,11 +432,22 @@ export default function HomePage() {
 
               <h2 className="text-6xl font-black">
 
-                Essentials Products
+                Essentials
+                <br />
+                Products
 
               </h2>
 
             </div>
+
+            <a
+              href="/products"
+              className="text-zinc-900 font-bold uppercase tracking-[0.2em] hover:opacity-60 transition"
+            >
+
+              View More →
+
+            </a>
 
           </div>
 
@@ -459,7 +457,7 @@ export default function HomePage() {
 
               <div
                 key={index}
-                className="bg-white rounded-[32px] overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.08)] group hover:-translate-y-2 transition"
+                className="bg-white rounded-[32px] overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.08)] group hover:-translate-y-2 transition duration-500"
               >
 
                 <div className="overflow-hidden">
@@ -482,7 +480,7 @@ export default function HomePage() {
 
                   <a
                     href="https://wa.me/6285156077596"
-                    className="inline-flex bg-zinc-900 text-white px-6 py-4 rounded-full font-bold uppercase tracking-[0.2em]"
+                    className="inline-flex bg-zinc-900 text-white px-6 py-4 rounded-full font-bold uppercase tracking-[0.2em] hover:scale-105 transition"
                   >
 
                     Order
@@ -500,141 +498,6 @@ export default function HomePage() {
         </div>
 
       </section>
-
-      {/* FOOTER */}
-      <footer className="border-t border-black/5 bg-white">
-
-        <div className="max-w-7xl mx-auto px-6 py-20">
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-14">
-
-            <div>
-
-              <h2 className="text-3xl font-black mb-6">
-
-                YowesWisuda
-
-              </h2>
-
-              <p className="text-zinc-500 leading-relaxed text-[15px]">
-
-                Platform gallery wisuda modern untuk
-                mencari, melihat, dan download
-                dokumentasi wisuda secara elegan.
-
-              </p>
-
-            </div>
-
-            <div>
-
-              <h3 className="font-black uppercase tracking-[0.25em] text-sm mb-6">
-
-                Navigation
-
-              </h3>
-
-              <div className="flex flex-col gap-4 text-zinc-500 text-[15px]">
-
-                <a href="/">Home</a>
-
-                <button
-                  onClick={() =>
-                    document
-                      .getElementById("gallery")
-                      ?.scrollIntoView({
-                        behavior: "smooth",
-                      })
-                  }
-                  className="text-left"
-                >
-
-                  Gallery
-
-                </button>
-
-                <button
-                  onClick={() =>
-                    document
-                      .getElementById("products")
-                      ?.scrollIntoView({
-                        behavior: "smooth",
-                      })
-                  }
-                  className="text-left"
-                >
-
-                  Products
-
-                </button>
-
-              </div>
-
-            </div>
-
-            <div>
-
-              <h3 className="font-black uppercase tracking-[0.25em] text-sm mb-6">
-
-                Social Media
-
-              </h3>
-
-              <div className="flex flex-col gap-4 text-zinc-500 text-[15px]">
-
-                <a href="https://instagram.com/yowesfoto">
-
-                  Instagram
-
-                </a>
-
-                <a href="https://instagram.com/yowesfotosport">
-
-                  YowesFotoSport
-
-                </a>
-
-                <a href="https://wa.me/6285156077596">
-
-                  WhatsApp
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div>
-
-              <h3 className="font-black uppercase tracking-[0.25em] text-sm mb-6">
-
-                Contact
-
-              </h3>
-
-              <div className="text-zinc-500 leading-8 text-[15px]">
-
-                <p>Tangerang Selatan</p>
-
-                <p>Indonesia</p>
-
-                <p>
-                  gunawanwicak305@gmail.com
-                </p>
-
-                <p>
-                  +62 851 5607 7596
-                </p>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </footer>
 
     </main>
 

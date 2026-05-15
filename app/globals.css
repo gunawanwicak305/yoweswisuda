@@ -1,26 +1,127 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
+
+  margin: 0;
+  padding: 0;
+  background: #f7f7f7;
+  color: #18181b;
   font-family: Arial, Helvetica, sans-serif;
+
+}
+
+* {
+
+  box-sizing: border-box;
+
+}
+
+a {
+
+  text-decoration: none;
+  color: inherit;
+
+}
+
+button {
+
+  cursor: pointer;
+
+}
+
+img {
+
+  display: block;
+
+}
+
+/* ========================= */
+/* SLIDESHOW ANIMATION */
+/* ========================= */
+
+@keyframes fade1 {
+
+  0% {
+    opacity: 1;
+  }
+
+  33% {
+    opacity: 1;
+  }
+
+  40% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+
+}
+
+@keyframes fade2 {
+
+  0% {
+    opacity: 0;
+  }
+
+  33% {
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  66% {
+    opacity: 1;
+  }
+
+  73% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+
+}
+
+@keyframes fade3 {
+
+  0% {
+    opacity: 0;
+  }
+
+  66% {
+    opacity: 0;
+  }
+
+  73% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+  }
+
+}
+
+.animate-fade1 {
+
+  animation: fade1 12s infinite;
+
+}
+
+.animate-fade2 {
+
+  animation: fade2 12s infinite;
+
+}
+
+.animate-fade3 {
+
+  animation: fade3 12s infinite;
+
 }
